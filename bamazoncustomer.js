@@ -9,12 +9,12 @@ con. connect(function(err) { if (err) throw err; console.
 */
 
 var mysql = require('mysql');
-var connection = mysql.createConnection({
+var connect = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: "",
   database: "bamazon"
-})
+});
 
 connect.connect(function() {
   if(error){
@@ -36,18 +36,16 @@ app.get("/", function(req, resp){
       resp.send("Hello" + rows[0].Name)
   }
 }
+*/
+
+console.log(amazon items);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+/*
+prompt 1: Which product ID would you like to purchase?
+prompt 2: how many units would you like to buy?
+database needs to check enough qty of the product, if not prompt user insufficient stock
+if enough stock prompt user sufficient stock
+update database with remaining qty on mysql
+show customer total cost of their purchase
 */
