@@ -9,40 +9,92 @@ con. connect(function(err) { if (err) throw err; console.log
 */
 
 var mysql = require('mysql');
-var connect = mysql.createConnection({
+var inquirer = require("inquirer");
+
+var connect = {
   host: 'localhost',
   user: 'root',
-  password: "",
-  database: "bamazon"
-});
+  password: "santal33!",
+  database: "bamazon",
+  port: 3306
+};
 
-connect.connect(function() {
+/*connect.connect(function() {
   if(error){
     console.log("Error");
   } else {
     console.log("Connected");
   }
-});
+});*/
 
-const connectObject = {
-  host: "localhost",
-  port: 3306,
-  user: " ",
-  password: " ",
-  database: "quiz1"
-}
 
 const mySql = require("mysql")
-const conn = mySql.createConnection(connectObject)
+const connection = mySql.createConnection(connect)
 
 
 connection.connect(function(error){
   if (error){
     throw error
   }
+  console.log(`Connected as ID: ${connection.threadId}`)
+});
 
-  console.log("Connected as ID: ${connection.threadID}")
+productDisplay();
+function productDisplay(){
+  var query = "SELECT ID, product_name, price FROM products;"
+  connection.query(query,function (err,response){
+    if (err){
+      throw err
+    };
+  for (var i = 0; i < response.length; i +=1){
+    console.log(`Product ID: ${response[i].ID} \nItem: ${response[i].product_name} \nPrice:$${response[i].price}\n`);
+  }
+  inquirer
+    .prompt([
+        {
+        type: "input",
+        message:"which product would you like to purchase?",
+        name: "product",
+      },
+        {
+        type: "input",
+        message: "How many would you like to purchase?",
+        name:"quantity"
+        }
+    ])
+.then(function(inquirerResponse){
+  var thing = "select * from products where ID = " + inquirerResponse.product;
+  connection.query(thing,function(error,response){
+    if (error) {
+      throw error
+    }
+    if (response[0].stock_quantity < inquirerResponse.quantity){
+      console.log("INSUFFICIENT QUANTITY");
+      connection.end();
+    }else {
+      purchase(response[0].stock_quantity, inquirerResponse.quantity,inquirerResponse.itemId)
+      }
+  })
+//then this is to check stock quantity, use if statement
+
+});
 })
+}
+ function purchase (stockQuantity, customerQuantity, item) {
+   var peeps = "select * from products where ID = " + item
+   connection.query(peeps,function(error,response){
+     if (error) {
+       throw error
+     }
+   })
+ }
+// }else {
+  //purchase response stock quantity
+// })
+
+//then this is to check stock quantity
+
+
 
 /* is this to retrieve the data from the table via command line?
 
@@ -58,7 +110,6 @@ app.get("/", function(req, resp){
 }
 */
 
-console.log(amazon items);
 
 
 /*
