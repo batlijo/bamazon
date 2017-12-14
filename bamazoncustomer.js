@@ -4,7 +4,7 @@ C:\Users\Your Name>npm install mysql.
 var mysql = require('mysql');
 Run "demo_db_connection.js" C:\Users\Your Name>node demo_db_connection.js.
 Connected!
-con. connect(function(err) { if (err) throw err; console.
+con. connect(function(err) { if (err) throw err; console.log
 
 */
 
@@ -23,6 +23,26 @@ connect.connect(function() {
     console.log("Connected");
   }
 });
+
+const connectObject = {
+  host: "localhost",
+  port: 3306,
+  user: " ",
+  password: " ",
+  database: "quiz1"
+}
+
+const mySql = require("mysql")
+const conn = mySql.createConnection(connectObject)
+
+
+connection.connect(function(error){
+  if (error){
+    throw error
+  }
+
+  console.log("Connected as ID: ${connection.threadID}")
+})
 
 /* is this to retrieve the data from the table via command line?
 
@@ -48,4 +68,7 @@ database needs to check enough qty of the product, if not prompt user insufficie
 if enough stock prompt user sufficient stock
 update database with remaining qty on mysql
 show customer total cost of their purchase
+
+
+LOOK AT ICE CREAM CRUD.JS ACTIVITY FROM SATURDAY FOR REFERENCE FOR THE NODE STUFF
 */
