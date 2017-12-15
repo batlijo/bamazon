@@ -72,10 +72,10 @@ function productDisplay(){
       console.log("INSUFFICIENT QUANTITY");
       connection.end();
     }else {
-      purchase(response[0].stock_quantity, inquirerResponse.quantity,inquirerResponse.itemId)
+      purchase(response[0].stock_quantity, inquirerResponse.quantity,inquirerResponse.product)
       }
   })
-//then this is to check stock quantity, use if statement
+//then this is to check stock quantity, use if statement ^^^
 
 });
 })
@@ -86,6 +86,8 @@ function productDisplay(){
      if (error) {
        throw error
      }
+     var totalPrice = response[0].price * customerQuantity;
+     console.log("Your total is $" + totalPrice);
    })
  }
 // }else {
@@ -96,19 +98,6 @@ function productDisplay(){
 
 
 
-/* is this to retrieve the data from the table via command line?
-
-app.get("/", function(req, resp){
-  connnection.query("SELECT * FROM bamazon", function(error,rows...)
-    if(!!error) {
-      console.log("Error in the query");
-    } else {
-      console.log("Success!\n");
-      console.log(rows[0].Name);
-      resp.send("Hello" + rows[0].Name)
-  }
-}
-*/
 
 
 
